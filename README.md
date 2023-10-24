@@ -1,16 +1,4 @@
-# repository_search
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# バージョン
+Flutter のバージョン管理に[fvm](https://github.com/leoafarias/fvm)を使用します。
+`fvm install`で`.fvm/fvm_config.json`に指定されている Flutter バージョンがインストールされます。
+基本的にはstableなバージョンを使用します。（2023/10/24現在で`3.13.8`）

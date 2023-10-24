@@ -6,16 +6,21 @@ Flutter のバージョン管理に[fvm](https://github.com/leoafarias/fvm)を�
 # PR前のチェック
 ## Formatter
 ```bash
-dart format .
+fvm dart format .
 ```
 
 ## Linter
 ### コードの解析
 ```bash
-dart analyze
+fvm flutter analyze
 ```
 
 ### 自動修正
 ```bash
-dart fix --apply 
+fvm dart fix --apply 
+```
+
+### テスト
+```bash
+fvm flutter test
 ```

@@ -8,6 +8,7 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 .fvm/flutter_sdk
+.vscode/
 .packages
 .pub-cache/
 .pub/

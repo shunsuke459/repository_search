@@ -32,6 +32,8 @@ fvm flutter test
 - 複数系の場合は、suffix に `_list` をつける
 
 ## ディレクトリ構成
+- entity
+  - データクラス
 - page
   - 画面の表示
   - ルーティングで使う Widget は、suffix に`_page`をつける
@@ -42,3 +44,11 @@ fvm flutter test
       - presenter と state を置く
     - widget
       - 各ページ内の Widget
+- gateway
+  - データ取得クラス
+  - APIリクエストを行う
+
+# freezed変更時
+```bash
+fvm dart run build_runner build --delete-conflicting-outputs
+```

@@ -1,0 +1,25 @@
+name: Github Actions
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2.3.0
+        with:
+          flutter-version: '3.13.8'
+      - run: flutter --version
+      - name: install package
+        run: flutter pub get
+      - name: format
+        run: dart format --set-exit-if-changed .
+      - name: analyze
+        run: flutter analyze
+      - name: test
+        run: flutter test

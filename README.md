@@ -47,3 +47,8 @@ fvm flutter test
 - gateway
   - データ取得クラス
   - APIリクエストを行う
+
+# freezed変更時
+```bash
+fvm dart run build_runner build --delete-conflicting-outputs
+```

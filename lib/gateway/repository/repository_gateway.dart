@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:repository_search/gateway/dio/dio.dart';
 import 'package:repository_search/page/search/presenter/repository.dart';
 
 class RepositoryGateway {
@@ -26,3 +28,7 @@ class RepositoryGateway {
     }
   }
 }
+
+final repositoryGatewayProvider = Provider(
+  (ref) => RepositoryGateway(dio: ref.read(dioProvider)),
+);

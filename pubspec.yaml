@@ -34,5 +34,8 @@ dev_dependencies:
   # 自動生成
   build_runner: ^2.4.6
 
+  # テスト用
+  mockito: ^5.4.2
+
 flutter:
   uses-material-design: true

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repository_search/page/search/presenter/repository_list_presenter.dart';
-import 'package:repository_search/page/search_result/search_result_page.dart';
+import 'package:repository_search/page/search/widget/repository_list_item.dart';
+import 'package:repository_search/page/widget/primary_app_bar.dart';
 import 'package:repository_search/theme/app_theme_color.dart';
 
 class SearchRepositoryPage extends ConsumerWidget {
@@ -12,85 +13,98 @@ class SearchRepositoryPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncSearchResultList = ref.watch(repositoryListPresenterProvider);
+    final asyncRepositoryList = ref.watch(repositoryListPresenterProvider);
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Githubリポジトリ検索'),
+        appBar: PrimaryAppBar(
+          title: 'Githubリポジトリ検索',
+          automaticallyImplyLeading: false,
         ),
-        body: Form(
-          key: formGlobalKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: controller,
-                onFieldSubmitted: (text) => _onFieldSubmitted(ref, text),
-                validator: (value) => value!.isEmpty ? '入力してください' : null,
-                decoration: InputDecoration(
-                  hintText: 'リポジトリ名を入力してください',
-                  prefixIcon: InkWell(
-                    onTap: () => _onFieldSubmitted(ref, controller.text),
-                    child: const Icon(Icons.search),
-                  ),
-                ),
-              ),
-              asyncSearchResultList.when(
-                data: (searchResultList) {
-                  return Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: searchResultList.map((searchResult) {
-                          return InkWell(
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => SearchResultPage(
-                                    title: searchResult.name ?? ''),
-                              ),
-                            ),
-                            child: Text(searchResult.name ?? ''),
-                          );
-                        }).toList(),
+        body: Container(
+          color: AppThemeColor.white.color,
+          child: Form(
+            key: formGlobalKey,
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: TextFormField(
+                    controller: controller,
+                    onFieldSubmitted: (text) => _onFieldSubmitted(ref, text),
+                    validator: (value) => value!.isEmpty ? '入力してください' : null,
+                    cursorColor: AppThemeColor.primaryDark.color,
+                    decoration: InputDecoration(
+                      hintText: 'リポジトリ名を入力してください',
+                      prefixIcon: InkWell(
+                        onTap: () => _onFieldSubmitted(ref, controller.text),
+                        child: const Icon(Icons.search),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppThemeColor.primaryDark.color,
+                          width: 2,
+                        ),
                       ),
                     ),
-                  );
-                },
-                error: (_, __) {
-                  return Builder(builder: (context) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      // エラーが発生したらSnackBarを表示
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: AppThemeColor.primaryMain.color,
-                          content: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'エラーが発生しました',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                  ),
+                ),
+                asyncRepositoryList.when(
+                  data: (repositoryList) {
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 8,
+                        ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: repositoryList.map((repository) {
+                              return RepositoryListItem(repository: repository);
+                            }).toList(),
                           ),
                         ),
-                      );
-                    });
+                      ),
+                    );
+                  },
+                  error: (_, __) {
+                    return Builder(builder: (context) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        // エラーが発生したらSnackBarを表示
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: AppThemeColor.primaryMain.color,
+                            content: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'エラーが発生しました',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      });
 
-                    return const SizedBox.shrink();
-                  });
-                },
-                loading: () => Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: AppThemeColor.primaryMain.color,
+                      return const SizedBox.shrink();
+                    });
+                  },
+                  loading: () => Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: AppThemeColor.primaryMain.color,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

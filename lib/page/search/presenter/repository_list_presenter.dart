@@ -23,7 +23,8 @@ class RepositoryListPresenter
   }
 }
 
-final repositoryListPresenterProvider = StateNotifierProvider(
+final repositoryListPresenterProvider = StateNotifierProvider<
+    RepositoryListPresenter, AsyncValue<List<Repository>>>(
   (ref) => RepositoryListPresenter(
     gateway: ref.read(repositoryGatewayProvider),
   ),

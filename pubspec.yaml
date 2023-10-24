@@ -19,6 +19,9 @@ dependencies:
   freezed: ^2.4.5
   freezed_annotation: ^2.4.1
 
+  # 状態管理
+  flutter_riverpod: ^2.4.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

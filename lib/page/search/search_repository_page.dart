@@ -4,11 +4,12 @@ import 'package:repository_search/page/search/presenter/repository_list_presente
 import 'package:repository_search/page/search_result/search_result_page.dart';
 
 class SearchRepositoryPage extends ConsumerWidget {
-  const SearchRepositoryPage({Key? key}) : super(key: key);
+  SearchRepositoryPage({Key? key}) : super(key: key);
+
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = TextEditingController();
     final asyncSearchResultList = ref.watch(repositoryListPresenterProvider);
 
     return Scaffold(

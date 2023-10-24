@@ -24,3 +24,21 @@ fvm dart fix --apply
 ```bash
 fvm flutter test
 ```
+
+# コーディング規約
+## 命名
+- ディレクトリ・ファイル名は単数系
+- ファイル名とクラス名を一致させる
+- 複数系の場合は、suffix に `_list` をつける
+
+## ディレクトリ構成
+- page
+  - 画面の表示
+  - ルーティングで使う Widget は、suffix に`_page`をつける
+  - widget
+    - 汎用の widget
+  - 各ページ内
+    - presenter
+      - presenter と state を置く
+    - widget
+      - 各ページ内の Widget

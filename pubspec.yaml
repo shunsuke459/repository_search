@@ -22,6 +22,8 @@ dependencies:
   # 状態管理
   flutter_riverpod: ^2.4.4
 
+  intl: ^0.18.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

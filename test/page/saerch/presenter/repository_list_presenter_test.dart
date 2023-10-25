@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:repository_search/gateway/repository/repository_gateway.dart';
 import 'package:repository_search/page/search/presenter/repository.dart';
 import 'package:repository_search/page/search/presenter/repository_list_presenter.dart';
+import 'package:repository_search/page/search/presenter/repository_list_state.dart';
 
 import 'repository_list_presenter_test.mocks.dart';
 
@@ -16,9 +17,9 @@ void main() {
     repositoryGateway = MockRepositoryGateway();
   });
 
-  group('fetchRepository', () {
+  group('RepositoryListPresenter', () {
     test(
-      '正常系',
+      'fetchRepository 正常系',
       () async {
         const query = 'query';
         final result = [
@@ -35,24 +36,80 @@ void main() {
           ),
         ];
 
-        when(repositoryGateway.fetchRepository(query))
-            .thenAnswer((realInvocation) async => result);
+        when(repositoryGateway.fetchRepository(query: query))
+            .thenAnswer((realInvocation) async => (result, 1));
 
         final presenter = RepositoryListPresenter(gateway: repositoryGateway);
+
+        final state = RepositoryListState(
+          totalCount: 1,
+          repositoryList: result,
+          page: 1,
+          query: query,
+          isLoadingAddition: false,
+        );
 
         expectLater(
           presenter.stream,
           emitsInOrder(
             [
-              const AsyncValue<List<Repository>>.loading(),
-              AsyncValue<List<Repository>>.data(result),
+              const AsyncValue<RepositoryListState?>.loading(),
+              AsyncValue<RepositoryListState?>.data(state),
             ],
           ),
         );
 
         await presenter.fetchRepository(query);
 
-        verify(repositoryGateway.fetchRepository(query));
+        verify(repositoryGateway.fetchRepository(query: query));
+      },
+      timeout: const Timeout(Duration(milliseconds: 5000)),
+    );
+
+    test(
+      'fetchAddtionalRepository 正常系',
+      () async {
+        const query = 'query';
+        final result = [
+          const Repository(
+            id: 2,
+            name: 'name2',
+            language: 'language2',
+            avatarUrl: 'avatarUrl2',
+            starCount: 2,
+            watchersCount: 2,
+            forksCount: 2,
+            openIssueCount: 2,
+            htmlUrl: 'htmlUrl2',
+          ),
+        ];
+
+        when(repositoryGateway.fetchRepository(query: query))
+            .thenAnswer((realInvocation) async => (result, 2));
+
+        final presenter = RepositoryListPresenter(gateway: repositoryGateway);
+
+        final state = RepositoryListState(
+          totalCount: 2,
+          repositoryList: result,
+          page: 1,
+          query: query,
+          isLoadingAddition: false,
+        );
+
+        expectLater(
+          presenter.stream,
+          emitsInOrder(
+            [
+              const AsyncValue<RepositoryListState?>.loading(),
+              AsyncValue<RepositoryListState?>.data(state),
+            ],
+          ),
+        );
+
+        await presenter.fetchRepository(query);
+
+        verify(repositoryGateway.fetchRepository(query: query));
       },
       timeout: const Timeout(Duration(milliseconds: 5000)),
     );

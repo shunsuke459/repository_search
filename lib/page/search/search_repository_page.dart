@@ -53,7 +53,9 @@ class SearchRepositoryPage extends ConsumerWidget {
                 ),
                 asyncRepositoryListState.when(
                   data: (repositoryListState) {
-                    final repositoryList = repositoryListState.repositoryList;
+                    final repositoryList = repositoryListState?.repositoryList;
+                    // repositoryListは初期状態がnullなのでnullチェック
+                    if (repositoryList == null) return const SizedBox.shrink();
 
                     return Expanded(
                       child: Padding(

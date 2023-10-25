@@ -30,7 +30,7 @@ class RepositoryListPresenter
 }
 
 final repositoryListPresenterProvider = StateNotifierProvider.autoDispose<
-    RepositoryListPresenter, AsyncValue<RepositoryListState>>(
+    RepositoryListPresenter, AsyncValue<RepositoryListState?>>(
   (ref) => RepositoryListPresenter(
     gateway: ref.read(repositoryGatewayProvider),
   ),

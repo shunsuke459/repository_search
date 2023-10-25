@@ -50,11 +50,18 @@ class MockRepositoryGateway extends _i1.Mock implements _i3.RepositoryGateway {
       ) as _i2.Dio);
 
   @override
-  _i4.Future<(List<_i5.Repository>, int)> fetchRepository(String? query) =>
+  _i4.Future<(List<_i5.Repository>, int)> fetchRepository({
+    required String? query,
+    int? page = 0,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchRepository,
-          [query],
+          [],
+          {
+            #query: query,
+            #page: page,
+          },
         ),
         returnValue: _i4.Future<(List<_i5.Repository>, int)>.value(
             (<_i5.Repository>[], 0)),

@@ -32,8 +32,8 @@ class RepositoryListPresenter
   }
 
   // 追加のリポジトリ取得
-  Future<void> fetchAdditionalRepository() async {
-    if (state.value?.isLoadingAddition ?? true) return;
+  Future<bool> fetchAdditionalRepository() async {
+    if (state.value?.isLoadingAddition ?? true) return true;
 
     try {
       state = AsyncValue.data(
@@ -56,8 +56,17 @@ class RepositoryListPresenter
           isLoadingAddition: false,
         ),
       );
-    } catch (e, stackTrace) {
-      state = AsyncValue.error(e, stackTrace);
+
+      return true;
+    } catch (e) {
+      // エラーが発生した場合はローディング状態の解除のみ
+      state = AsyncValue.data(
+        state.value!.copyWith(
+          isLoadingAddition: false,
+        ),
+      );
+
+      return false;
     }
   }
 }

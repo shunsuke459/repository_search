@@ -106,11 +106,43 @@ class SearchRepositoryPage extends ConsumerWidget {
                                         ),
                                         child: !isLoadingAddition
                                             ? InkWell(
-                                                onTap: () => ref
-                                                    .read(
-                                                        repositoryListPresenterProvider
-                                                            .notifier)
-                                                    .fetchAdditionalRepository(),
+                                                onTap: () async {
+                                                  final isSuccess = await ref
+                                                      .read(
+                                                          repositoryListPresenterProvider
+                                                              .notifier)
+                                                      .fetchAdditionalRepository();
+
+                                                  // エラーが発生したらSnackBarを表示
+                                                  if (!isSuccess) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        backgroundColor:
+                                                            AppThemeColor
+                                                                .primaryMain
+                                                                .color,
+                                                        content: const Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'エラーが発生しました',
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                },
                                                 child: Icon(
                                                   Icons.refresh,
                                                   color: AppThemeColor
@@ -149,7 +181,7 @@ class SearchRepositoryPage extends ConsumerWidget {
                         // エラーが発生したらSnackBarを表示
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            backgroundColor: AppThemeColor.primaryMain.color,
+                            backgroundColor: AppThemeColor.primaryDark.color,
                             content: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

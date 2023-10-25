@@ -41,8 +41,13 @@ void main() {
 
         final presenter = RepositoryListPresenter(gateway: repositoryGateway);
 
-        final state =
-            RepositoryListState(totalCount: 1, repositoryList: result, page: 1, query: query, isLoadingAddition: false);
+        final state = RepositoryListState(
+          totalCount: 1,
+          repositoryList: result,
+          page: 1,
+          query: query,
+          isLoadingAddition: false,
+        );
 
         expectLater(
           presenter.stream,
@@ -84,8 +89,13 @@ void main() {
 
         final presenter = RepositoryListPresenter(gateway: repositoryGateway);
 
-        final state =
-            RepositoryListState(totalCount: 2, repositoryList: result, page: 1, query: query, isLoadingAddition: false);
+        final state = RepositoryListState(
+          totalCount: 2,
+          repositoryList: result,
+          page: 1,
+          query: query,
+          isLoadingAddition: false,
+        );
 
         expectLater(
           presenter.stream,

@@ -7,15 +7,15 @@ class RepositoryGateway {
   final Dio dio;
   const RepositoryGateway({required this.dio});
 
-  Future<List<Repository>> fetchRepository(String query) async {
+  Future<(List<Repository>, int)> fetchRepository(String query) async {
     const apiUrl = 'https://api.github.com/search/repositories';
 
     try {
       final result = await dio.get('$apiUrl?q=$query');
 
-      final repositoryList = result.data['items'] as List<dynamic>;
-
-      return repositoryList
+      final totalCount = result.data['total_count'] as int;
+      final items = result.data['items'] as List<dynamic>;
+      final repositoryList = items
           .map((repository) => Repository.fromJson(
                 {
                   ...repository,
@@ -23,6 +23,8 @@ class RepositoryGateway {
                 },
               ))
           .toList();
+
+      return (repositoryList, totalCount);
     } catch (e) {
       rethrow;
     }

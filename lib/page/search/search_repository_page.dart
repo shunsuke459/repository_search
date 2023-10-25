@@ -13,7 +13,7 @@ class SearchRepositoryPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncRepositoryList = ref.watch(repositoryListPresenterProvider);
+    final asyncRepositoryListState = ref.watch(repositoryListPresenterProvider);
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -51,8 +51,10 @@ class SearchRepositoryPage extends ConsumerWidget {
                     ),
                   ),
                 ),
-                asyncRepositoryList.when(
-                  data: (repositoryList) {
+                asyncRepositoryListState.when(
+                  data: (repositoryListState) {
+                    final repositoryList = repositoryListState.repositoryList;
+
                     return Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

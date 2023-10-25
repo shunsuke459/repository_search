@@ -70,6 +70,9 @@ class SearchRepositoryPage extends ConsumerWidget {
                     // 取得済みのリポジトリ件数
                     final resultNum = min(30 * page, totalCount);
                     final formatter = NumberFormat('#,###');
+                    // 追加分をロード中か否か
+                    final isLoadingAddition =
+                        repositoryListState.isLoadingAddition;
 
                     return Flexible(
                       child: Column(
@@ -101,11 +104,34 @@ class SearchRepositoryPage extends ConsumerWidget {
                                         padding: const EdgeInsets.symmetric(
                                           vertical: 12,
                                         ),
-                                        child: IconButton(
-                                          onPressed:
-                                              () {}, // FIXME: タップ次に追加のデータを取得してくるよう実装
-                                          icon: const Icon(Icons.refresh),
-                                        ),
+                                        child: !isLoadingAddition
+                                            ? InkWell(
+                                                onTap: () => ref
+                                                    .read(
+                                                        repositoryListPresenterProvider
+                                                            .notifier)
+                                                    .fetchAdditionalRepository(),
+                                                child: Icon(
+                                                  Icons.refresh,
+                                                  color: AppThemeColor
+                                                      .primaryDark.color,
+                                                ),
+                                              )
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 4),
+                                                child: SizedBox(
+                                                  width: 16,
+                                                  height: 16,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    strokeWidth: 2,
+                                                    color: AppThemeColor
+                                                        .primaryDark.color,
+                                                  ),
+                                                ),
+                                              ),
                                       ),
                                   ],
                                 ),

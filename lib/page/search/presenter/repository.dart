@@ -13,7 +13,7 @@ class Repository with _$Repository {
     @JsonKey(name: 'stargazers_count') int? starCount,
     @JsonKey(name: 'watchers_count') int? watchersCount,
     @JsonKey(name: 'forks_count') int? forksCount,
-    @JsonKey(name: 'open_issue_count') int? openIssueCount,
+    @JsonKey(name: 'open_issues_count') int? openIssueCount,
     @JsonKey(name: 'html_url') String? htmlUrl,
   }) = _Repository;
 

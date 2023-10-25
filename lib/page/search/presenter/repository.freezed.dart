@@ -30,7 +30,7 @@ mixin _$Repository {
   int? get watchersCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'forks_count')
   int? get forksCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'open_issue_count')
+  @JsonKey(name: 'open_issues_count')
   int? get openIssueCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'html_url')
   String? get htmlUrl => throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ abstract class $RepositoryCopyWith<$Res> {
       @JsonKey(name: 'stargazers_count') int? starCount,
       @JsonKey(name: 'watchers_count') int? watchersCount,
       @JsonKey(name: 'forks_count') int? forksCount,
-      @JsonKey(name: 'open_issue_count') int? openIssueCount,
+      @JsonKey(name: 'open_issues_count') int? openIssueCount,
       @JsonKey(name: 'html_url') String? htmlUrl});
 }
 
@@ -139,7 +139,7 @@ abstract class _$$RepositoryImplCopyWith<$Res>
       @JsonKey(name: 'stargazers_count') int? starCount,
       @JsonKey(name: 'watchers_count') int? watchersCount,
       @JsonKey(name: 'forks_count') int? forksCount,
-      @JsonKey(name: 'open_issue_count') int? openIssueCount,
+      @JsonKey(name: 'open_issues_count') int? openIssueCount,
       @JsonKey(name: 'html_url') String? htmlUrl});
 }
 
@@ -216,7 +216,7 @@ class _$RepositoryImpl implements _Repository {
       @JsonKey(name: 'stargazers_count') this.starCount,
       @JsonKey(name: 'watchers_count') this.watchersCount,
       @JsonKey(name: 'forks_count') this.forksCount,
-      @JsonKey(name: 'open_issue_count') this.openIssueCount,
+      @JsonKey(name: 'open_issues_count') this.openIssueCount,
       @JsonKey(name: 'html_url') this.htmlUrl});
 
   factory _$RepositoryImpl.fromJson(Map<String, dynamic> json) =>
@@ -240,7 +240,7 @@ class _$RepositoryImpl implements _Repository {
   @JsonKey(name: 'forks_count')
   final int? forksCount;
   @override
-  @JsonKey(name: 'open_issue_count')
+  @JsonKey(name: 'open_issues_count')
   final int? openIssueCount;
   @override
   @JsonKey(name: 'html_url')
@@ -301,7 +301,7 @@ abstract class _Repository implements Repository {
       @JsonKey(name: 'stargazers_count') final int? starCount,
       @JsonKey(name: 'watchers_count') final int? watchersCount,
       @JsonKey(name: 'forks_count') final int? forksCount,
-      @JsonKey(name: 'open_issue_count') final int? openIssueCount,
+      @JsonKey(name: 'open_issues_count') final int? openIssueCount,
       @JsonKey(name: 'html_url') final String? htmlUrl}) = _$RepositoryImpl;
 
   factory _Repository.fromJson(Map<String, dynamic> json) =
@@ -325,7 +325,7 @@ abstract class _Repository implements Repository {
   @JsonKey(name: 'forks_count')
   int? get forksCount;
   @override
-  @JsonKey(name: 'open_issue_count')
+  @JsonKey(name: 'open_issues_count')
   int? get openIssueCount;
   @override
   @JsonKey(name: 'html_url')

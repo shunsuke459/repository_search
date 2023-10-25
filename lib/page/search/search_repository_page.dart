@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:repository_search/page/search/presenter/repository_list_presenter.dart';
 import 'package:repository_search/page/search/widget/repository_list_item.dart';
 import 'package:repository_search/page/widget/primary_app_bar.dart';
@@ -53,23 +56,64 @@ class SearchRepositoryPage extends ConsumerWidget {
                 ),
                 asyncRepositoryListState.when(
                   data: (repositoryListState) {
-                    final repositoryList = repositoryListState?.repositoryList;
-                    // repositoryListは初期状態がnullなのでnullチェック
-                    if (repositoryList == null) return const SizedBox.shrink();
+                    // repositoryListStateは初期状態がnullなのでnullチェック
+                    if (repositoryListState == null) {
+                      return const SizedBox.shrink();
+                    }
 
-                    return Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 8,
-                        ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: repositoryList.map((repository) {
-                              return RepositoryListItem(repository: repository);
-                            }).toList(),
+                    // 表示するリポジトリのリスト
+                    final repositoryList = repositoryListState.repositoryList;
+                    // 検索結果の総数
+                    final totalCount = repositoryListState.totalCount;
+                    // 現在のページ数
+                    final page = repositoryListState.page;
+                    // 取得済みのリポジトリ件数
+                    final resultNum = min(30 * page, totalCount);
+                    final formatter = NumberFormat('#,###');
+
+                    return Flexible(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 4, right: 20),
+                              child: Text(
+                                  '${formatter.format(resultNum)}件 / ${formatter.format(totalCount)}件中'),
+                            ),
                           ),
-                        ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 8,
+                              ),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    ...repositoryList.map((repository) {
+                                      return RepositoryListItem(
+                                          repository: repository);
+                                    }).toList(),
+                                    if (resultNum < totalCount)
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 12,
+                                        ),
+                                        child: IconButton(
+                                          onPressed:
+                                              () {}, // FIXME: タップ次に追加のデータを取得してくるよう実装
+                                          icon: const Icon(Icons.refresh),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 30),
+                        ],
                       ),
                     );
                   },

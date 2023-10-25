@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:repository_search/gateway/repository/repository_gateway.dart';
 import 'package:repository_search/page/search/presenter/repository.dart';
 import 'package:repository_search/page/search/presenter/repository_list_presenter.dart';
+import 'package:repository_search/page/search/presenter/repository_list_state.dart';
 
 import 'repository_list_presenter_test.mocks.dart';
 
@@ -36,16 +37,19 @@ void main() {
         ];
 
         when(repositoryGateway.fetchRepository(query))
-            .thenAnswer((realInvocation) async => result);
+            .thenAnswer((realInvocation) async => (result, 1));
 
         final presenter = RepositoryListPresenter(gateway: repositoryGateway);
+
+        final state =
+            RepositoryListState(totalCount: 1, repositoryList: result, page: 1);
 
         expectLater(
           presenter.stream,
           emitsInOrder(
             [
-              const AsyncValue<List<Repository>>.loading(),
-              AsyncValue<List<Repository>>.data(result),
+              const AsyncValue<RepositoryListState?>.loading(),
+              AsyncValue<RepositoryListState?>.data(state),
             ],
           ),
         );

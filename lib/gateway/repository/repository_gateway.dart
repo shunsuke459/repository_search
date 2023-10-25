@@ -9,7 +9,7 @@ class RepositoryGateway {
 
   Future<(List<Repository>, int)> fetchRepository({
     required String query,
-    int page = 0,
+    int page = 1,
   }) async {
     const apiUrl = 'https://api.github.com/search/repositories';
 

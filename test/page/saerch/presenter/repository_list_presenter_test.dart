@@ -36,13 +36,13 @@ void main() {
           ),
         ];
 
-        when(repositoryGateway.fetchRepository(query))
+        when(repositoryGateway.fetchRepository(query: query))
             .thenAnswer((realInvocation) async => (result, 1));
 
         final presenter = RepositoryListPresenter(gateway: repositoryGateway);
 
         final state =
-            RepositoryListState(totalCount: 1, repositoryList: result, page: 1);
+            RepositoryListState(totalCount: 1, repositoryList: result, page: 1, query: query, isLoadingAddition: false);
 
         expectLater(
           presenter.stream,
@@ -56,7 +56,7 @@ void main() {
 
         await presenter.fetchRepository(query);
 
-        verify(repositoryGateway.fetchRepository(query));
+        verify(repositoryGateway.fetchRepository(query: query));
       },
       timeout: const Timeout(Duration(milliseconds: 5000)),
     );

@@ -17,8 +17,11 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$RepositoryListState {
   int get totalCount => throw _privateConstructorUsedError;
-  List<Repository> get repositoryList => throw _privateConstructorUsedError;
+  List<Repository> get repositoryList =>
+      throw _privateConstructorUsedError; // 追加分をロードする際にTextFormFieldのテキストが変わっている可能性があるのでここで保持する
+  String get query => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
+  bool get isLoadingAddition => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RepositoryListStateCopyWith<RepositoryListState> get copyWith =>
@@ -31,7 +34,12 @@ abstract class $RepositoryListStateCopyWith<$Res> {
           RepositoryListState value, $Res Function(RepositoryListState) then) =
       _$RepositoryListStateCopyWithImpl<$Res, RepositoryListState>;
   @useResult
-  $Res call({int totalCount, List<Repository> repositoryList, int page});
+  $Res call(
+      {int totalCount,
+      List<Repository> repositoryList,
+      String query,
+      int page,
+      bool isLoadingAddition});
 }
 
 /// @nodoc
@@ -49,7 +57,9 @@ class _$RepositoryListStateCopyWithImpl<$Res, $Val extends RepositoryListState>
   $Res call({
     Object? totalCount = null,
     Object? repositoryList = null,
+    Object? query = null,
     Object? page = null,
+    Object? isLoadingAddition = null,
   }) {
     return _then(_value.copyWith(
       totalCount: null == totalCount
@@ -60,10 +70,18 @@ class _$RepositoryListStateCopyWithImpl<$Res, $Val extends RepositoryListState>
           ? _value.repositoryList
           : repositoryList // ignore: cast_nullable_to_non_nullable
               as List<Repository>,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      isLoadingAddition: null == isLoadingAddition
+          ? _value.isLoadingAddition
+          : isLoadingAddition // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -76,7 +94,12 @@ abstract class _$$RepositoryListStateImplCopyWith<$Res>
       __$$RepositoryListStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int totalCount, List<Repository> repositoryList, int page});
+  $Res call(
+      {int totalCount,
+      List<Repository> repositoryList,
+      String query,
+      int page,
+      bool isLoadingAddition});
 }
 
 /// @nodoc
@@ -92,7 +115,9 @@ class __$$RepositoryListStateImplCopyWithImpl<$Res>
   $Res call({
     Object? totalCount = null,
     Object? repositoryList = null,
+    Object? query = null,
     Object? page = null,
+    Object? isLoadingAddition = null,
   }) {
     return _then(_$RepositoryListStateImpl(
       totalCount: null == totalCount
@@ -103,10 +128,18 @@ class __$$RepositoryListStateImplCopyWithImpl<$Res>
           ? _value._repositoryList
           : repositoryList // ignore: cast_nullable_to_non_nullable
               as List<Repository>,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      isLoadingAddition: null == isLoadingAddition
+          ? _value.isLoadingAddition
+          : isLoadingAddition // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -117,7 +150,9 @@ class _$RepositoryListStateImpl implements _RepositoryListState {
   const _$RepositoryListStateImpl(
       {required this.totalCount,
       required final List<Repository> repositoryList,
-      required this.page})
+      required this.query,
+      required this.page,
+      required this.isLoadingAddition})
       : _repositoryList = repositoryList;
 
   @override
@@ -130,12 +165,17 @@ class _$RepositoryListStateImpl implements _RepositoryListState {
     return EqualUnmodifiableListView(_repositoryList);
   }
 
+// 追加分をロードする際にTextFormFieldのテキストが変わっている可能性があるのでここで保持する
+  @override
+  final String query;
   @override
   final int page;
+  @override
+  final bool isLoadingAddition;
 
   @override
   String toString() {
-    return 'RepositoryListState(totalCount: $totalCount, repositoryList: $repositoryList, page: $page)';
+    return 'RepositoryListState(totalCount: $totalCount, repositoryList: $repositoryList, query: $query, page: $page, isLoadingAddition: $isLoadingAddition)';
   }
 
   @override
@@ -147,12 +187,20 @@ class _$RepositoryListStateImpl implements _RepositoryListState {
                 other.totalCount == totalCount) &&
             const DeepCollectionEquality()
                 .equals(other._repositoryList, _repositoryList) &&
-            (identical(other.page, page) || other.page == page));
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.isLoadingAddition, isLoadingAddition) ||
+                other.isLoadingAddition == isLoadingAddition));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, totalCount,
-      const DeepCollectionEquality().hash(_repositoryList), page);
+  int get hashCode => Object.hash(
+      runtimeType,
+      totalCount,
+      const DeepCollectionEquality().hash(_repositoryList),
+      query,
+      page,
+      isLoadingAddition);
 
   @JsonKey(ignore: true)
   @override
@@ -166,14 +214,20 @@ abstract class _RepositoryListState implements RepositoryListState {
   const factory _RepositoryListState(
       {required final int totalCount,
       required final List<Repository> repositoryList,
-      required final int page}) = _$RepositoryListStateImpl;
+      required final String query,
+      required final int page,
+      required final bool isLoadingAddition}) = _$RepositoryListStateImpl;
 
   @override
   int get totalCount;
   @override
   List<Repository> get repositoryList;
+  @override // 追加分をロードする際にTextFormFieldのテキストが変わっている可能性があるのでここで保持する
+  String get query;
   @override
   int get page;
+  @override
+  bool get isLoadingAddition;
   @override
   @JsonKey(ignore: true)
   _$$RepositoryListStateImplCopyWith<_$RepositoryListStateImpl> get copyWith =>

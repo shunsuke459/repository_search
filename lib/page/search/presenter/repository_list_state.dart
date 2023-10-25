@@ -8,6 +8,9 @@ class RepositoryListState with _$RepositoryListState {
   const factory RepositoryListState({
     required int totalCount,
     required List<Repository> repositoryList,
+    // 追加分をロードする際にTextFormFieldのテキストが変わっている可能性があるのでここで保持する
+    required String query,
     required int page,
+    required bool isLoadingAddition,
   }) = _RepositoryListState;
 }

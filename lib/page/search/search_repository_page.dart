@@ -45,6 +45,13 @@ class SearchRepositoryPage extends ConsumerWidget {
                         onTap: () => _onFieldSubmitted(ref, controller.text),
                         child: const Icon(Icons.search),
                       ),
+                      suffixIcon: InkWell(
+                        onTap: () => controller.clear(),
+                        child: Icon(
+                          Icons.clear,
+                          color: AppThemeColor.primaryDark.color,
+                        ),
+                      ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: AppThemeColor.primaryDark.color,

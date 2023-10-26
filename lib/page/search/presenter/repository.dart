@@ -15,6 +15,7 @@ class Repository with _$Repository {
     @JsonKey(name: 'forks_count') int? forksCount,
     @JsonKey(name: 'open_issues_count') int? openIssueCount,
     @JsonKey(name: 'html_url') String? htmlUrl,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _Repository;
 
   factory Repository.fromJson(Map<String, Object?> json) =>

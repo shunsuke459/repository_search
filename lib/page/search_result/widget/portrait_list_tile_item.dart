@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:repository_search/theme/app_theme_color.dart';
 
-class ListTileItem extends StatelessWidget {
-  const ListTileItem({
+class PortraitListTileItem extends StatelessWidget {
+  const PortraitListTileItem({
     Key? key,
     required this.title,
     required this.subtitle,

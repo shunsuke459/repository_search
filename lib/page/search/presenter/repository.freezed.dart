@@ -34,6 +34,8 @@ mixin _$Repository {
   int? get openIssueCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'html_url')
   String? get htmlUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,7 +58,8 @@ abstract class $RepositoryCopyWith<$Res> {
       @JsonKey(name: 'watchers_count') int? watchersCount,
       @JsonKey(name: 'forks_count') int? forksCount,
       @JsonKey(name: 'open_issues_count') int? openIssueCount,
-      @JsonKey(name: 'html_url') String? htmlUrl});
+      @JsonKey(name: 'html_url') String? htmlUrl,
+      @JsonKey(name: 'created_at') DateTime? createdAt});
 }
 
 /// @nodoc
@@ -81,6 +84,7 @@ class _$RepositoryCopyWithImpl<$Res, $Val extends Repository>
     Object? forksCount = freezed,
     Object? openIssueCount = freezed,
     Object? htmlUrl = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -119,6 +123,10 @@ class _$RepositoryCopyWithImpl<$Res, $Val extends Repository>
           ? _value.htmlUrl
           : htmlUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -140,7 +148,8 @@ abstract class _$$RepositoryImplCopyWith<$Res>
       @JsonKey(name: 'watchers_count') int? watchersCount,
       @JsonKey(name: 'forks_count') int? forksCount,
       @JsonKey(name: 'open_issues_count') int? openIssueCount,
-      @JsonKey(name: 'html_url') String? htmlUrl});
+      @JsonKey(name: 'html_url') String? htmlUrl,
+      @JsonKey(name: 'created_at') DateTime? createdAt});
 }
 
 /// @nodoc
@@ -163,6 +172,7 @@ class __$$RepositoryImplCopyWithImpl<$Res>
     Object? forksCount = freezed,
     Object? openIssueCount = freezed,
     Object? htmlUrl = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_$RepositoryImpl(
       id: freezed == id
@@ -201,6 +211,10 @@ class __$$RepositoryImplCopyWithImpl<$Res>
           ? _value.htmlUrl
           : htmlUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -217,7 +231,8 @@ class _$RepositoryImpl implements _Repository {
       @JsonKey(name: 'watchers_count') this.watchersCount,
       @JsonKey(name: 'forks_count') this.forksCount,
       @JsonKey(name: 'open_issues_count') this.openIssueCount,
-      @JsonKey(name: 'html_url') this.htmlUrl});
+      @JsonKey(name: 'html_url') this.htmlUrl,
+      @JsonKey(name: 'created_at') this.createdAt});
 
   factory _$RepositoryImpl.fromJson(Map<String, dynamic> json) =>
       _$$RepositoryImplFromJson(json);
@@ -245,10 +260,13 @@ class _$RepositoryImpl implements _Repository {
   @override
   @JsonKey(name: 'html_url')
   final String? htmlUrl;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'Repository(id: $id, name: $name, language: $language, avatarUrl: $avatarUrl, starCount: $starCount, watchersCount: $watchersCount, forksCount: $forksCount, openIssueCount: $openIssueCount, htmlUrl: $htmlUrl)';
+    return 'Repository(id: $id, name: $name, language: $language, avatarUrl: $avatarUrl, starCount: $starCount, watchersCount: $watchersCount, forksCount: $forksCount, openIssueCount: $openIssueCount, htmlUrl: $htmlUrl, createdAt: $createdAt)';
   }
 
   @override
@@ -270,13 +288,15 @@ class _$RepositoryImpl implements _Repository {
                 other.forksCount == forksCount) &&
             (identical(other.openIssueCount, openIssueCount) ||
                 other.openIssueCount == openIssueCount) &&
-            (identical(other.htmlUrl, htmlUrl) || other.htmlUrl == htmlUrl));
+            (identical(other.htmlUrl, htmlUrl) || other.htmlUrl == htmlUrl) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, language, avatarUrl,
-      starCount, watchersCount, forksCount, openIssueCount, htmlUrl);
+      starCount, watchersCount, forksCount, openIssueCount, htmlUrl, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -294,15 +314,17 @@ class _$RepositoryImpl implements _Repository {
 
 abstract class _Repository implements Repository {
   const factory _Repository(
-      {final int? id,
-      final String? name,
-      final String? language,
-      final String? avatarUrl,
-      @JsonKey(name: 'stargazers_count') final int? starCount,
-      @JsonKey(name: 'watchers_count') final int? watchersCount,
-      @JsonKey(name: 'forks_count') final int? forksCount,
-      @JsonKey(name: 'open_issues_count') final int? openIssueCount,
-      @JsonKey(name: 'html_url') final String? htmlUrl}) = _$RepositoryImpl;
+          {final int? id,
+          final String? name,
+          final String? language,
+          final String? avatarUrl,
+          @JsonKey(name: 'stargazers_count') final int? starCount,
+          @JsonKey(name: 'watchers_count') final int? watchersCount,
+          @JsonKey(name: 'forks_count') final int? forksCount,
+          @JsonKey(name: 'open_issues_count') final int? openIssueCount,
+          @JsonKey(name: 'html_url') final String? htmlUrl,
+          @JsonKey(name: 'created_at') final DateTime? createdAt}) =
+      _$RepositoryImpl;
 
   factory _Repository.fromJson(Map<String, dynamic> json) =
       _$RepositoryImpl.fromJson;
@@ -330,6 +352,9 @@ abstract class _Repository implements Repository {
   @override
   @JsonKey(name: 'html_url')
   String? get htmlUrl;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$RepositoryImplCopyWith<_$RepositoryImpl> get copyWith =>

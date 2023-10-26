@@ -52,7 +52,7 @@ class MockRepositoryGateway extends _i1.Mock implements _i3.RepositoryGateway {
   @override
   _i4.Future<(List<_i5.Repository>, int)> fetchRepository({
     required String? query,
-    int? page = 0,
+    int? page = 1,
   }) =>
       (super.noSuchMethod(
         Invocation.method(

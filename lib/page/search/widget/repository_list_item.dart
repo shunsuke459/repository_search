@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:repository_search/page/search/presenter/repository.dart';
 import 'package:repository_search/page/search_result/search_result_page.dart';
 import 'package:repository_search/theme/app_theme_color.dart';
@@ -28,12 +29,47 @@ class RepositoryListItem extends StatelessWidget {
             builder: (context) => SearchResultPage(repository: repository),
           ),
         ),
-        child: Text(
-          repository.name ?? '',
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontSize: 16,
-          ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(35),
+              child: SizedBox(
+                width: 35,
+                height: 35,
+                child: Image.network(
+                  repository.avatarUrl ?? '',
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.error),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    repository.name ?? '',
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  Text(
+                    repository.createdAt != null
+                        ? DateFormat('yyyy/MM/dd hh:mm')
+                            .format(repository.createdAt!)
+                        : '',
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

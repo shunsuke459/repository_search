@@ -3,6 +3,7 @@ import 'package:repository_search/page/search/presenter/repository.dart';
 import 'package:repository_search/page/search_result/widget/landscape_list_tile_item.dart';
 import 'package:repository_search/page/search_result/widget/portrait_list_tile_item.dart';
 import 'package:repository_search/page/widget/primary_app_bar.dart';
+import 'package:repository_search/theme/app_theme_color.dart';
 
 class SearchResultPage extends StatelessWidget {
   const SearchResultPage({
@@ -16,10 +17,13 @@ class SearchResultPage extends StatelessWidget {
     final orientation = MediaQuery.of(context).orientation;
 
     return Scaffold(
+      backgroundColor: AppThemeColor.white.color,
       appBar: PrimaryAppBar(title: repository.name ?? '', context: context),
-      body: orientation == Orientation.portrait
-          ? _PortraitBody(repository: repository)
-          : _LandscapeBody(repository: repository),
+      body: SafeArea(
+        child: orientation == Orientation.portrait
+            ? _PortraitBody(repository: repository)
+            : _LandscapeBody(repository: repository),
+      ),
     );
   }
 }

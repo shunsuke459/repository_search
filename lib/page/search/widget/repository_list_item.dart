@@ -58,7 +58,8 @@ class RepositoryListItem extends StatelessWidget {
                   ),
                   Text(
                     repository.createdAt != null
-                        ? DateFormat('yyyy/MM/dd hh:mm').format(repository.createdAt!)
+                        ? DateFormat('yyyy/MM/dd hh:mm')
+                            .format(repository.createdAt!)
                         : '',
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

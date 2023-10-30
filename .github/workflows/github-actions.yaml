@@ -23,3 +23,5 @@ jobs:
         run: flutter analyze
       - name: test
         run: flutter test
+      - name: build for android
+        run: flutter build apk

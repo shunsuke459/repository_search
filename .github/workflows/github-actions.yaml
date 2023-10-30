@@ -26,4 +26,4 @@ jobs:
       - name: build for android
         run: flutter build apk
       - name: build for ios
-        run: flutter build ios --no-codesign
+        run: flutter build ipa --no-codesign
